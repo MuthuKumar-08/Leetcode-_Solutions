@@ -7,7 +7,7 @@ Approach:
 - This avoids sorting and extra space.
 
 Time Complexity: O(n)
-Space Complexity: O(1)
+Space Complexity: O(n)
 */
 
 class Solution {

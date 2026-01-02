@@ -1,0 +1,37 @@
+/*
+Approach: Two Pointer Technique
+
+- The given array is sorted, so duplicate elements appear consecutively.
+- Use two pointers:
+  - j keeps track of the index of the last unique element.
+  - i traverses the array to find new unique elements.
+- Start j at index 0 (first element is always unique).
+- Traverse the array from index 1:
+  - If nums[i] == nums[j], it is a duplicate → skip it.
+  - If nums[i] != nums[j], increment j and copy nums[i] to nums[j].
+- After traversal, the first (j + 1) elements contain all unique values.
+- Return j + 1 as the count of unique elements.
+
+Time Complexity: O(n)
+Space Complexity: O(1)
+*/
+
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int n = nums.size();
+        int i = 1;
+        int j = 0;
+
+        while (i < n) {
+            if (nums[i] == nums[j]) {
+                i++;
+            } else {
+                j++;
+                nums[j] = nums[i];
+                i++;
+            }
+        }
+        return j + 1;
+    }
+};

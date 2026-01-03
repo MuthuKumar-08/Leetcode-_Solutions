@@ -1,0 +1,48 @@
+/*
+Approach:
+- This problem is solved using Depth First Search (DFS) with backtracking.
+- Start from node 0 (source) and explore all possible paths until reaching
+  the last node (target = graph.size() - 1).
+- Maintain a `path` vector to store the current traversal path.
+- Whenever the current node equals the target, store the path in `result`.
+- After exploring a node, backtrack by removing the last node from `path`
+  to explore other possible paths.
+- Since the graph is a DAG, no visited array is required.
+
+Time Complexity:
+- O(P * L), where P is the number of paths and L is the average path length.
+
+Space Complexity:
+- O(L), due to recursion stack and path storage.
+*/
+
+class Solution {
+public:
+    vector<vector<int>> result;
+    int target;
+
+    void dfs(int node, vector<int>& path, vector<vector<int>>& graph) {
+        // Base case: reached target node
+        if (node == target) {
+            result.push_back(path);
+            return;
+        }
+
+        // Explore neighbors
+        for (int next : graph[node]) {
+            path.push_back(next);
+            dfs(next, path, graph);
+            path.pop_back(); // Backtrack
+        }
+    }
+
+    vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
+        target = graph.size() - 1;
+
+        vector<int> path;
+        path.push_back(0); // Start from source
+
+        dfs(0, path, graph);
+        return result;
+    }
+};

@@ -1,0 +1,37 @@
+"""
+Approach:
+- Use Depth First Search (DFS) with backtracking to explore all paths
+  from the source node (0) to the target node (n - 1).
+- Maintain a `path` list to store the current traversal path.
+- When the current node reaches the target, add a copy of the path
+  to the result list.
+- After exploring a neighbor, backtrack by removing the last node
+  to explore other possible paths.
+- Since the graph is a DAG, no visited array is required.
+
+Time Complexity:
+- O(P * L), where P is the number of paths and L is the average path length.
+
+Space Complexity:
+- O(L), due to recursion stack and path storage.
+"""
+
+class Solution:
+    def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
+        result = []
+        path = []
+        target = len(graph) - 1
+
+        def dfs(node, path):
+            # Base case
+            if node == target:
+                result.append(path[:])
+                return
+
+            for i in graph[node]:
+                path.append(i)
+                dfs(i, path)
+                path.pop()  # Backtrack
+
+        dfs(0, [0])
+        return result
